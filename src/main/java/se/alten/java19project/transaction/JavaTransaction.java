@@ -1,5 +1,7 @@
 package se.alten.java19project.transaction;
 
+import se.alten.java19project.entity.Java;
+
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
@@ -16,7 +18,14 @@ public class JavaTransaction implements JavaTransactionAccess{
 
     @Override
     public List getAllNames() {
+        System.out.println("In TRANSACTION&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
         Query query = entityManager.createQuery("SELECT j FROM Java j");
         return query.getResultList();
+    }
+
+    @Override
+    public void addName(Java name) {
+        entityManager.persist(name);
+        entityManager.flush();
     }
 }
